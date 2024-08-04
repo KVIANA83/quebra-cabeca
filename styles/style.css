@@ -14,6 +14,7 @@ body {
     display: block;
 }
 
+/* Estilização do Topo */
 header {
     background: linear-gradient(180deg, #000428, #004E92);
     color: #ffffff;
@@ -25,12 +26,16 @@ header .logo-topo img {
     height: auto;
 }
 
+/* Estilização do Corpo */
 main {
     padding: 20px;
 }
 
 section {
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #puzzle-container {
@@ -45,7 +50,7 @@ section {
     width: 100px;
     height: 100px;
     border: 1px solid #ddd;
-    background-size: 400px 400px;
+    background-size: 300px 300px;
     cursor: pointer;
     transition: transform 0.2s;
 }
@@ -56,6 +61,12 @@ section {
 
 .puzzle-piece.dragging {
     opacity: 0.5;
+}
+
+.controle {
+    display: flex;
+    align-items: center;
+    margin: 10px;
 }
 
 .btn {
@@ -79,13 +90,17 @@ section {
     background-image: linear-gradient(to right, #ffcc00, #ff6600);
 }
 
+/* Estilização do Rodapé */
 footer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     padding: 30px 4%;
     background: linear-gradient(0deg, #000428, #004E92);
     color: #fff;
+}
+
+footer .flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 footer .logo-rodape {
