@@ -16,16 +16,31 @@ document.addEventListener("DOMContentLoaded", () => {
         'assets/R.jpeg'
     ];
 
+    function getPieceSize() {
+        // Ajuste do tamanho das peças baseado na largura da janela
+        const minPieceSize = 60;
+        const maxPieceSize = 100;
+        const pieceSize = Math.min(maxPieceSize, Math.max(minPieceSize, window.innerWidth / gridSize));
+        return pieceSize;
+    }
+
     function createPuzzle() {
         pieces = [];
         puzzleContainer.innerHTML = '';
         const imageUrl = images[imageIndex];
+        const pieceSize = getPieceSize();
         
+        puzzleContainer.style.gridTemplateColumns = `repeat(${gridSize}, ${pieceSize}px)`;
+        puzzleContainer.style.gridTemplateRows = `repeat(${gridSize}, ${pieceSize}px)`;
+
         for (let i = 0; i < gridSize * gridSize; i++) {
             const piece = document.createElement("div");
             piece.classList.add("puzzle-piece");
+            piece.style.width = `${pieceSize}px`;
+            piece.style.height = `${pieceSize}px`;
             piece.style.backgroundImage = `url('${imageUrl}')`;
-            piece.style.backgroundPosition = `${(i % gridSize) * -100}px ${Math.floor(i / gridSize) * -100}px`;
+            piece.style.backgroundSize = `${pieceSize * gridSize}px ${pieceSize * gridSize}px`;
+            piece.style.backgroundPosition = `${(i % gridSize) * -pieceSize}px ${Math.floor(i / gridSize) * -pieceSize}px`;
             piece.dataset.index = i;
             piece.draggable = true;
             piece.addEventListener("dragstart", dragStart);
@@ -92,8 +107,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // Evento para resetar o quebra-cabeça
     resetButton.addEventListener("click", resetPuzzle);
 
+    // Recalcula o tamanho das peças ao redimensionar a janela
+    window.addEventListener("resize", createPuzzle);
+
     // Inicializa o quebra-cabeça
     createPuzzle();
 });
-
-
