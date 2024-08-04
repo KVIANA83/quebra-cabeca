@@ -70,7 +70,7 @@ section {
 }
 
 .btn {
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 600;
     color: #ff6600;
     background-color: transparent;
@@ -124,8 +124,8 @@ footer .btn-social {
 }
 
 .btn-social button {
-    width: 40px;
-    height: 40px;
+    width: 60px;
+    height: 60px;
     font-size: 18px;
     cursor: pointer;
     margin: 0 5px;
@@ -151,4 +151,65 @@ footer .rodape {
     text-align: center;
     font-size: 12px;
     width: 100%;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    header .logo-topo img {
+        max-width: 30%;
+    }
+
+    #puzzle-container {
+        grid-template-columns: repeat(4, 80px);
+        grid-template-rows: repeat(4, 80px);
+    }
+
+    .puzzle-piece {
+        width: 80px;
+        height: 80px;
+        background-size: 240px 240px;
+    }
+
+    .controle {
+        flex-direction: column;
+    }
+    
+    .btn {
+        width: 100px;
+        margin: 5px 0;
+    }
+
+    footer .logo-rodape img {
+        max-width: 70%;
+    }
+
+    footer .btn-social {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    header .logo-topo img {
+        max-width: 50%;
+    }
+
+    #puzzle-container {
+        grid-template-columns: repeat(4, 60px);
+        grid-template-rows: repeat(4, 60px);
+    }
+
+    .puzzle-piece {
+        width: 60px;
+        height: 60px;
+        background-size: 180px 180px;
+    }
+    
+    .btn {
+        width: 80px;
+        font-size: 10px;
+    }
+
+    footer .logo-rodape img {
+        max-width: 80%;
+    }
 }
