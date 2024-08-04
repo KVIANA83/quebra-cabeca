@@ -17,7 +17,6 @@ document.addEventListener("DOMContentLoaded", () => {
     ];
 
     function getPieceSize() {
-        // Ajuste do tamanho das peças baseado na largura da janela
         const minPieceSize = 60;
         const maxPieceSize = 100;
         const pieceSize = Math.min(maxPieceSize, Math.max(minPieceSize, window.innerWidth / gridSize));
@@ -29,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
         puzzleContainer.innerHTML = '';
         const imageUrl = images[imageIndex];
         const pieceSize = getPieceSize();
-        
+
         puzzleContainer.style.gridTemplateColumns = `repeat(${gridSize}, ${pieceSize}px)`;
         puzzleContainer.style.gridTemplateRows = `repeat(${gridSize}, ${pieceSize}px)`;
 
@@ -42,13 +41,39 @@ document.addEventListener("DOMContentLoaded", () => {
             piece.style.backgroundSize = `${pieceSize * gridSize}px ${pieceSize * gridSize}px`;
             piece.style.backgroundPosition = `${(i % gridSize) * -pieceSize}px ${Math.floor(i / gridSize) * -pieceSize}px`;
             piece.dataset.index = i;
-            piece.draggable = true;
-            piece.addEventListener("dragstart", dragStart);
-            piece.addEventListener("dragover", dragOver);
-            piece.addEventListener("drop", drop);
             pieces.push(piece);
             puzzleContainer.appendChild(piece);
         }
+
+        interact('.puzzle-piece')
+            .draggable({
+                inertia: true,
+                modifiers: [
+                    interact.modifiers.restrictRect({
+                        restriction: puzzleContainer,
+                        endOnly: true
+                    })
+                ],
+                listeners: {
+                    start(event) {
+                        event.target.classList.add('dragging');
+                    },
+                    move(event) {
+                        const target = event.target;
+                        const x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
+                        const y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+
+                        target.style.transform = `translate(${x}px, ${y}px)`;
+                        target.setAttribute('data-x', x);
+                        target.setAttribute('data-y', y);
+                    },
+                    end(event) {
+                        const target = event.target;
+                        target.classList.remove('dragging');
+                        checkCompletion();
+                    }
+                }
+            });
 
         shufflePieces();
     }
@@ -65,51 +90,24 @@ document.addEventListener("DOMContentLoaded", () => {
         createPuzzle();
     }
 
-    function dragStart(e) {
-        e.dataTransfer.setData("text/plain", e.target.dataset.index);
-    }
-
-    function dragOver(e) {
-        e.preventDefault();
-    }
-
-    function drop(e) {
-        const fromIndex = e.dataTransfer.getData("text/plain");
-        const toIndex = e.target.dataset.index;
-
-        if (fromIndex !== toIndex) {
-            const fromElement = document.querySelector(`.puzzle-piece[data-index='${fromIndex}']`);
-            const toElement = document.querySelector(`.puzzle-piece[data-index='${toIndex}']`);
-
-            [fromElement.dataset.index, toElement.dataset.index] = [toIndex, fromIndex];
-
-            puzzleContainer.insertBefore(fromElement, toElement);
-            puzzleContainer.insertBefore(toElement, fromElement.nextSibling);
-
-            checkCompletion();
-        }
-    }
-
     function checkCompletion() {
         const correct = Array.from(puzzleContainer.children).every((piece, index) => {
-            return piece.dataset.index == index;
+            const x = parseFloat(piece.getAttribute('data-x')) || 0;
+            const y = parseFloat(piece.getAttribute('data-y')) || 0;
+            return x === 0 && y === 0;
         });
 
         if (correct) {
-            alert("Parabéns! Você completou o quebra-cabeça.");
-            resetPuzzle();
+            setTimeout(() => {
+                alert("Parabéns! Você completou o quebra-cabeça.");
+                resetPuzzle();
+            }, 300);
         }
     }
 
-    // Evento para embaralhar as peças
     shuffleButton.addEventListener("click", shufflePieces);
-
-    // Evento para resetar o quebra-cabeça
     resetButton.addEventListener("click", resetPuzzle);
-
-    // Recalcula o tamanho das peças ao redimensionar a janela
     window.addEventListener("resize", createPuzzle);
 
-    // Inicializa o quebra-cabeça
     createPuzzle();
 });
