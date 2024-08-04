@@ -27,6 +27,10 @@ document.addEventListener("DOMContentLoaded", () => {
             piece.style.backgroundImage = `url('${imageUrl}')`;
             piece.style.backgroundPosition = `${(i % gridSize) * -100}px ${Math.floor(i / gridSize) * -100}px`;
             piece.dataset.index = i;
+            piece.draggable = true;
+            piece.addEventListener("dragstart", dragStart);
+            piece.addEventListener("dragover", dragOver);
+            piece.addEventListener("drop", drop);
             pieces.push(piece);
             puzzleContainer.appendChild(piece);
         }
@@ -35,7 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function shufflePieces() {
-        // Embaralha a ordem das peças
         for (let i = pieces.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             puzzleContainer.appendChild(pieces[j]);
@@ -47,6 +50,42 @@ document.addEventListener("DOMContentLoaded", () => {
         createPuzzle();
     }
 
+    function dragStart(e) {
+        e.dataTransfer.setData("text/plain", e.target.dataset.index);
+    }
+
+    function dragOver(e) {
+        e.preventDefault();
+    }
+
+    function drop(e) {
+        const fromIndex = e.dataTransfer.getData("text/plain");
+        const toIndex = e.target.dataset.index;
+
+        if (fromIndex !== toIndex) {
+            const fromElement = document.querySelector(`.puzzle-piece[data-index='${fromIndex}']`);
+            const toElement = document.querySelector(`.puzzle-piece[data-index='${toIndex}']`);
+
+            [fromElement.dataset.index, toElement.dataset.index] = [toIndex, fromIndex];
+
+            puzzleContainer.insertBefore(fromElement, toElement);
+            puzzleContainer.insertBefore(toElement, fromElement.nextSibling);
+
+            checkCompletion();
+        }
+    }
+
+    function checkCompletion() {
+        const correct = Array.from(puzzleContainer.children).every((piece, index) => {
+            return piece.dataset.index == index;
+        });
+
+        if (correct) {
+            alert("Parabéns! Você completou o quebra-cabeça.");
+            resetPuzzle();
+        }
+    }
+
     // Evento para embaralhar as peças
     shuffleButton.addEventListener("click", shufflePieces);
 
@@ -56,3 +95,5 @@ document.addEventListener("DOMContentLoaded", () => {
     // Inicializa o quebra-cabeça
     createPuzzle();
 });
+
+
