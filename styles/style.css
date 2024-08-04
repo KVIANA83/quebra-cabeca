@@ -9,3 +9,98 @@
     font-family: 'Poppins', sans-serif;
 }
 
+body {
+   /* background-color: #f5f5dc; */
+    display: block;
+}
+
+/* Estilização Topo */
+header {
+    background: linear-gradient(180deg, #000428, #004E92);
+    color: #ffffff;
+    padding: 10px 0;
+}
+
+header .logo-topo img {
+    max-width: 15%;
+    height: auto;
+}
+
+/* Estilização Corpo */
+main {
+    padding: 20px;
+}
+
+section {
+    text-align: center;
+}
+
+.btn {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ff6600;
+    background-color: transparent;
+    border: 1px solid #ff6600;
+    border-radius: 25px;
+    margin: 5px;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: .2s;
+    width: 150px;
+}
+
+.btn:hover {
+    color: #fff;
+    border: none;
+    background-image: linear-gradient(to right, #ffcc00, #ff6600);
+}
+
+/* Estilização Rodapé */
+footer {
+   /* display: flex; */
+    padding: 30px 4%;
+    background: linear-gradient(0deg, #000428, #004E92);
+    color: #fff;
+}
+
+footer .logo-rodape img {
+    max-width: 55%;
+    height: auto;
+}
+
+footer .btn-social {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.btn-social button {
+  width: 40px;
+  height: 40px;
+  font-size: 18px;
+  cursor: pointer;
+  margin: 0 5px;
+  transition: .2s;
+  border: 1px solid #ffcc00;
+  border-radius: 50px;
+  background-color: transparent;
+  color: #ffcc00;
+  justify-content: space-between;
+}
+
+.btn-social button:hover {
+  color: #fff;
+  border: none;
+  background-image: linear-gradient(to right, #ffcc00, #ff6600);
+}
+
+.btn-social a {
+  text-decoration: none;
+}
+
+footer .rodape {
+    text-align: center;
+    font-size: 12px;
+    width: 100%;
+}
