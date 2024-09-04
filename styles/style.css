@@ -10,6 +10,7 @@
 }
 
 body {
+    background-color: #f1f1f1;
     display: block;
 }
 
@@ -21,7 +22,7 @@ header {
 }
 
 header .logo-topo img {
-    max-width: 15%;
+    max-width: 10%;
     height: auto;
 }
 
@@ -70,7 +71,7 @@ section {
     font-size: 14px;
     font-weight: 600;
     color: #ff6600;
-    background-color: transparent;
+    background-color: #fff;
     border: 1px solid #ff6600;
     border-radius: 25px;
     margin: 5px;
@@ -89,7 +90,7 @@ section {
 
 /* Estilização do Rodapé */
 footer {
-    padding: 30px 4%;
+    padding: 10px 4%;
     background: linear-gradient(0deg, #000428, #004E92);
     color: #fff;
 }
@@ -101,14 +102,14 @@ footer .flex {
 }
 
 footer .logo-rodape {
-    width: 100%;
+    width: 50%;
     display: flex;
     justify-content: flex-start;
     margin-bottom: 20px;
 }
 
 footer .logo-rodape img {
-    max-width: 55%;
+    max-width: 50%;
     height: auto;
 }
 
@@ -121,9 +122,9 @@ footer .btn-social {
 }
 
 .btn-social button {
-    width: 40px;
-    height: 40px;
-    font-size: 18px;
+    width: 60px;
+    height: 60px;
+    font-size: 22px;
     cursor: pointer;
     margin: 0 5px;
     transition: .2s;
