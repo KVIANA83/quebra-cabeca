@@ -13,7 +13,7 @@ O projeto foi desenvolvido com foco em **lógica, manipulação do DOM e experi�
 
 🔗 **Acesse o projeto online (GitHub Pages):**  
 👉 *(adicione aqui o link após publicar)*  
-Exemplo: `https://kriana83.github.io/quebra-cabeca-one-piece/`
+Exemplo: `https://kviana83.github.io/quebra-cabeca-one-piece/`
 
 ---
 
