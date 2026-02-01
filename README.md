@@ -55,24 +55,7 @@ quebra-cabeca/
 ├── index.html
 └── README.md
 
-````
-
----
-
-## ▶️ Como Executar o Projeto
-
-### Localmente
-1. Clone o repositório:
-   ```bash
-   git clone https://github.com/KVIANA83/quebra-cabeca-one-piece.git
-````
-
-2. Abra o arquivo `index.html` no navegador.
-
-### Online [GitHub Pages](https://kviana83.github.io/quebra-cabeca/)
-
-* Basta acessar o link publicado na seção **Demonstração**.
-
+```
 ---
 
 ## 📌 Status do Projeto
@@ -95,8 +78,18 @@ Sinta-se à vontade para estudar, modificar e reutilizar.
 
 ---
 
-💙 Desenvolvido com dedicação por **Karine Viana**
+## ▶️ Como Executar o Projeto
 
+### Localmente
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/KVIANA83/quebra-cabeca-one-piece.git
 ```
+
+2. Abra o arquivo `index.html` no navegador.
+
+### Online [GitHub Pages](https://kviana83.github.io/quebra-cabeca/)
+
+* Basta acessar o link publicado na seção **Demonstração**.
 
 ---
