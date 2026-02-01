@@ -1,7 +1,11 @@
-/* Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
+/* ==============================
+   GOOGLE FONTS
+============================== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-/* Estilização Geral */
+/* ==============================
+   RESET E BASE
+============================== */
 * {
     margin: 0;
     padding: 0;
@@ -11,203 +15,191 @@
 
 body {
     background-color: #f1f1f1;
-    display: block;
 }
 
-/* Estilização do Topo */
+/* ==============================
+   TOPO
+============================== */
 header {
     background: linear-gradient(180deg, #000428, #004E92);
-    color: #ffffff;
     padding: 10px 0;
+    text-align: center;
 }
 
-header .logo-topo img {
-    max-width: 10%;
-    height: auto;
+.logo-topo img {
+    max-width: 120px;
 }
 
-/* Estilização do Corpo */
+/* ==============================
+   CORPO
+============================== */
 main {
     padding: 20px;
 }
 
 section {
-    text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-#puzzle-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    gap: 2px;
-    margin: 0 auto;
-    width: 100%;
-    max-width: 400px; /* Limite de tamanho para a grade do quebra-cabeça */
-    height: auto;
+/* ==============================
+   ÁREA DO JOGO
+============================== */
+.game-area {
+    display: flex;
+    gap: 30px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
+/* ==============================
+   TABULEIRO (ONDE MONTA)
+============================== */
+#puzzle-board {
+    display: grid;
+    gap: 2px;
+    background: #ccc;
+    padding: 4px;
+}
+
+/* Cada espaço correto */
+.slot {
+    width: 80px;
+    height: 80px;
+    border: 1px dashed #999;
+    background-color: #eee;
+}
+
+/* ==============================
+   ÁREA DAS PEÇAS
+============================== */
+#pieces-container {
+    width: 340px;
+    min-height: 340px;
+    position: relative;
+    border: 2px dashed #ff6600;
+    padding: 10px;
+}
+
+/* ==============================
+   PEÇAS DO QUEBRA-CABEÇA
+============================== */
 .puzzle-piece {
-    background-size: cover;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
+    position: absolute; /* ESSENCIAL PARA DRAG */
+    cursor: grab;
+    border-radius: 4px;
+    background-repeat: no-repeat;
+    transition: box-shadow 0.2s, transform 0.2s;
 }
 
 .puzzle-piece:active {
-    transform: scale(0.95);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: grabbing;
+    transform: scale(0.97);
+    box-shadow: 0 6px 10px rgba(0,0,0,0.3);
 }
 
-/* Estilização dos Botões */
+/* ==============================
+   CONTROLES
+============================== */
 .controle {
     display: flex;
-    align-items: center;
-    margin: 10px;
+    gap: 10px;
+    margin-top: 20px;
 }
 
 .btn {
-    font-size: 14px;
-    font-weight: 600;
-    color: #ff6600;
-    background-color: #fff;
-    border: 1px solid #ff6600;
-    border-radius: 25px;
-    margin: 5px;
-    padding: 10px;
-    text-align: center;
-    cursor: pointer;
-    transition: .2s;
     width: 150px;
+    padding: 10px;
+    border-radius: 25px;
+    border: 1px solid #ff6600;
+    background: #fff;
+    color: #ff6600;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
 .btn:hover {
+    background: linear-gradient(to right, #ffcc00, #ff6600);
     color: #fff;
     border: none;
-    background-image: linear-gradient(to right, #ffcc00, #ff6600);
 }
 
-/* Estilização do Rodapé */
+/* ==============================
+   RODAPÉ
+============================== */
 footer {
-    padding: 10px 4%;
     background: linear-gradient(0deg, #000428, #004E92);
     color: #fff;
+    padding: 20px;
+    margin-top: 40px;
 }
 
 footer .flex {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
+    flex-wrap: wrap;
 }
 
-footer .logo-rodape {
-    width: 50%;
-    display: flex;
-    justify-content: flex-start;
-    margin-bottom: 20px;
-}
-
-footer .logo-rodape img {
-    max-width: 50%;
-    height: auto;
-}
-
-footer .btn-social {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    margin-bottom: 20px;
+.logo-rodape img {
+    max-width: 120px;
 }
 
 .btn-social button {
-    width: 60px;
-    height: 60px;
-    font-size: 22px;
-    cursor: pointer;
-    margin: 0 5px;
-    transition: .2s;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: transparent;
     border: 1px solid #ffcc00;
-    border-radius: 50px;
-    background-color: transparent;
     color: #ffcc00;
-    justify-content: space-between;
+    font-size: 20px;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
 .btn-social button:hover {
+    background: linear-gradient(to right, #ffcc00, #ff6600);
     color: #fff;
     border: none;
-    background-image: linear-gradient(to right, #ffcc00, #ff6600);
 }
 
-.btn-social a {
-    text-decoration: none;
-}
-
-footer .rodape {
+.rodape {
     text-align: center;
     font-size: 12px;
-    width: 100%;
+    margin-top: 10px;
 }
 
-/* Responsividade */
+/* ==============================
+   RESPONSIVO
+============================== */
 @media (max-width: 768px) {
-    header .logo-topo img {
-        max-width: 30%;
-    }
-
-    #puzzle-container {
-        grid-template-columns: repeat(4, 80px);
-        grid-template-rows: repeat(4, 80px);
-    }
-
-    .puzzle-piece {
-        width: 80px;
-        height: 80px;
-        background-size: 240px 240px;
-    }
-
-    .controle {
+    .game-area {
         flex-direction: column;
-    }
-    
-    .btn {
-        width: 100px;
-        margin: 5px 0;
+        align-items: center;
     }
 
-    footer .logo-rodape img {
-        max-width: 70%;
+    #pieces-container {
+        width: 300px;
+        min-height: 300px;
     }
 
-    footer .btn-social {
-        justify-content: center;
+    .slot {
+        width: 70px;
+        height: 70px;
     }
 }
 
 @media (max-width: 480px) {
-    header .logo-topo img {
-        max-width: 50%;
-    }
-
-    #puzzle-container {
-        grid-template-columns: repeat(4, 60px);
-        grid-template-rows: repeat(4, 60px);
-    }
-
-    .puzzle-piece {
+    .slot {
         width: 60px;
         height: 60px;
-        background-size: 180px 180px;
-    }
-    
-    .btn {
-        width: 80px;
-        font-size: 10px;
     }
 
-    footer .logo-rodape img {
-        max-width: 80%;
+    .btn {
+        width: 120px;
+        font-size: 12px;
     }
 }

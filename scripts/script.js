@@ -1,113 +1,204 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const puzzleContainer = document.getElementById("puzzle-container");
-    const shuffleButton = document.getElementById("shuffle-button");
-    const resetButton = document.getElementById("reset-button");
 
-    const gridSize = 4; // Tamanho da grade (4x4)
-    let pieces = [];
-    let imageIndex = 0; // Índice da imagem atual
+  /* ============================
+     ELEMENTOS
+  ============================ */
+  const puzzleBoard = document.getElementById("puzzle-board");
+  const piecesContainer = document.getElementById("pieces-container");
+  const shuffleButton = document.getElementById("shuffle-button");
+  const resetButton = document.getElementById("reset-button");
 
-    const images = [
-        'assets/OIP (1).jpeg',
-        'assets/OIP (2).jpeg',
-        'assets/OIP.jpeg',
-        'assets/R (1).jpeg',
-        'assets/R (2).jpeg',
-        'assets/R.jpeg'
-    ];
+  /* ============================
+     CONFIGURAÇÕES
+  ============================ */
+  const gridSize = 4;
+  const pieceSize = 80;
+  let imageIndex = 0;
+  let pieces = [];
 
-    function getPieceSize() {
-        const minPieceSize = 60;
-        const maxPieceSize = 100;
-        const pieceSize = Math.min(maxPieceSize, Math.max(minPieceSize, window.innerWidth / gridSize));
-        return pieceSize;
+  const images = [
+    "assets/OIP (1).jpeg",
+    "assets/OIP (2).jpeg",
+    "assets/OIP.jpeg",
+    "assets/R (1).jpeg",
+    "assets/R (2).jpeg",
+    "assets/R.jpeg"
+  ];
+
+  /* ============================
+     CRIAR TABULEIRO
+  ============================ */
+  function createBoard() {
+    puzzleBoard.innerHTML = "";
+    puzzleBoard.style.gridTemplateColumns = `repeat(${gridSize}, ${pieceSize}px)`;
+    puzzleBoard.style.gridTemplateRows = `repeat(${gridSize}, ${pieceSize}px)`;
+
+    for (let i = 0; i < gridSize * gridSize; i++) {
+      const slot = document.createElement("div");
+      slot.classList.add("slot");
+      slot.dataset.index = i;
+      puzzleBoard.appendChild(slot);
+    }
+  }
+
+  /* ============================
+     CRIAR PEÇAS
+  ============================ */
+  function createPieces(imageUrl) {
+    piecesContainer.innerHTML = "";
+    pieces = [];
+
+    for (let i = 0; i < gridSize * gridSize; i++) {
+      const piece = document.createElement("div");
+      piece.classList.add("puzzle-piece");
+
+      piece.dataset.correctIndex = i;
+
+      piece.style.width = `${pieceSize}px`;
+      piece.style.height = `${pieceSize}px`;
+      piece.style.backgroundImage = `url('${imageUrl}')`;
+      piece.style.backgroundSize = `${pieceSize * gridSize}px ${pieceSize * gridSize}px`;
+      piece.style.backgroundPosition =
+        `${-(i % gridSize) * pieceSize}px ${-Math.floor(i / gridSize) * pieceSize}px`;
+
+      piecesContainer.appendChild(piece);
+      pieces.push(piece);
     }
 
-    function createPuzzle() {
-        pieces = [];
-        puzzleContainer.innerHTML = '';
-        const imageUrl = images[imageIndex];
-        const pieceSize = getPieceSize();
+    randomizeInitialPosition();
+    enableDrag();
+  }
 
-        puzzleContainer.style.gridTemplateColumns = `repeat(${gridSize}, ${pieceSize}px)`;
-        puzzleContainer.style.gridTemplateRows = `repeat(${gridSize}, ${pieceSize}px)`;
+  /* ============================
+     POSIÇÃO ALEATÓRIA INICIAL
+  ============================ */
+  function randomizeInitialPosition() {
+    const containerRect = piecesContainer.getBoundingClientRect();
 
-        for (let i = 0; i < gridSize * gridSize; i++) {
-            const piece = document.createElement("div");
-            piece.classList.add("puzzle-piece");
-            piece.style.width = `${pieceSize}px`;
-            piece.style.height = `${pieceSize}px`;
-            piece.style.backgroundImage = `url('${imageUrl}')`;
-            piece.style.backgroundSize = `${pieceSize * gridSize}px ${pieceSize * gridSize}px`;
-            piece.style.backgroundPosition = `${(i % gridSize) * -pieceSize}px ${Math.floor(i / gridSize) * -pieceSize}px`;
-            piece.dataset.index = i;
-            pieces.push(piece);
-            puzzleContainer.appendChild(piece);
+    pieces.forEach(piece => {
+      const maxX = containerRect.width - pieceSize - 10;
+      const maxY = containerRect.height - pieceSize - 10;
+
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+
+      piece.style.transform = `translate(${x}px, ${y}px)`;
+      piece.dataset.x = x;
+      piece.dataset.y = y;
+    });
+  }
+
+  /* ============================
+     DRAG & DROP (INTERACT.JS)
+  ============================ */
+  function enableDrag() {
+    interact(".puzzle-piece").draggable({
+      inertia: true,
+      listeners: {
+        move(event) {
+          const target = event.target;
+
+          const x = (parseFloat(target.dataset.x) || 0) + event.dx;
+          const y = (parseFloat(target.dataset.y) || 0) + event.dy;
+
+          target.style.transform = `translate(${x}px, ${y}px)`;
+          target.dataset.x = x;
+          target.dataset.y = y;
+        },
+
+        end(event) {
+          const piece = event.target;
+          const slots = document.querySelectorAll(".slot");
+
+          let encaixou = false;
+
+          slots.forEach(slot => {
+            if (slot.children.length > 0) return;
+
+            const slotRect = slot.getBoundingClientRect();
+            const pieceRect = piece.getBoundingClientRect();
+
+            const overlap =
+              pieceRect.left < slotRect.right &&
+              pieceRect.right > slotRect.left &&
+              pieceRect.top < slotRect.bottom &&
+              pieceRect.bottom > slotRect.top;
+
+            if (
+              overlap &&
+              slot.dataset.index === piece.dataset.correctIndex
+            ) {
+              // 🔒 FIXA A PEÇA NO SLOT
+              slot.appendChild(piece);
+
+              piece.style.transform = "none";
+              piece.style.position = "relative";
+              piece.style.left = "0";
+              piece.style.top = "0";
+
+              piece.removeAttribute("data-x");
+              piece.removeAttribute("data-y");
+
+              interact(piece).draggable(false);
+              encaixou = true;
+            }
+          });
+
+          if (!encaixou) {
+            // Mantém posição atual se não encaixar
+            piece.dataset.x = piece.dataset.x || 0;
+            piece.dataset.y = piece.dataset.y || 0;
+          }
+
+          checkVictory();
         }
+      }
+    });
+  }
 
-        interact('.puzzle-piece')
-            .draggable({
-                inertia: true,
-                modifiers: [
-                    interact.modifiers.restrictRect({
-                        restriction: puzzleContainer,
-                        endOnly: true
-                    })
-                ],
-                listeners: {
-                    start(event) {
-                        event.target.classList.add('dragging');
-                    },
-                    move(event) {
-                        const target = event.target;
-                        const x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
-                        const y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+  /* ============================
+     VERIFICAR VITÓRIA
+  ============================ */
+  function checkVictory() {
+    const correctPieces = puzzleBoard.querySelectorAll(".slot .puzzle-piece");
 
-                        target.style.transform = `translate(${x}px, ${y}px)`;
-                        target.setAttribute('data-x', x);
-                        target.setAttribute('data-y', y);
-                    },
-                    end(event) {
-                        const target = event.target;
-                        target.classList.remove('dragging');
-                        checkCompletion();
-                    }
-                }
-            });
-
-        shufflePieces();
+    if (correctPieces.length === gridSize * gridSize) {
+      setTimeout(() => {
+        alert("🎉 Parabéns! Você concluiu o quebra-cabeça!");
+        nextImage();
+      }, 400);
     }
+  }
 
-    function shufflePieces() {
-        for (let i = pieces.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            puzzleContainer.appendChild(pieces[j]);
-        }
-    }
+  /* ============================
+     PRÓXIMA IMAGEM
+  ============================ */
+  function nextImage() {
+    imageIndex = (imageIndex + 1) % images.length;
+    startGame();
+  }
 
-    function resetPuzzle() {
-        imageIndex = (imageIndex + 1) % images.length; // Troca para a próxima imagem
-        createPuzzle();
-    }
+  /* ============================
+     INICIAR JOGO
+  ============================ */
+  function startGame() {
+    createBoard();
+    createPieces(images[imageIndex]);
+  }
 
-    function checkCompletion() {
-        const correct = Array.from(puzzleContainer.children).every((piece, index) => {
-            const x = parseFloat(piece.getAttribute('data-x')) || 0;
-            const y = parseFloat(piece.getAttribute('data-y')) || 0;
-            return x === 0 && y === 0;
-        });
+  /* ============================
+     BOTÕES
+  ============================ */
+  shuffleButton.addEventListener("click", () => {
+    randomizeInitialPosition();
+  });
 
-        if (correct) {
-            setTimeout(() => {
-                alert("Parabéns! Você completou o quebra-cabeça.");
-                resetPuzzle();
-            }, 300);
-        }
-    }
+  resetButton.addEventListener("click", () => {
+    nextImage();
+  });
 
-    shuffleButton.addEventListener("click", shufflePieces);
-    resetButton.addEventListener("click", resetPuzzle);
-    window.addEventListener("resize", createPuzzle);
-
-    createPuzzle();
+  /* ============================
+     START
+  ============================ */
+  startGame();
 });

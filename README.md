@@ -1,44 +1,102 @@
-# Quebra-Cabeça One Piece
+# 🧩 Quebra-Cabeça One Piece
 
-## Descrição
+## 📖 Descrição
 
-Este é um projeto de quebra-cabeça simples em desenvolvimento que utiliza imagens do anime "One Piece". O objetivo é criar uma experiência interativa onde os usuários podem embaralhar e resolver o quebra-cabeça, com a funcionalidade adicional de reiniciar o jogo e trocar as imagens.
+Projeto de quebra-cabeça interativo desenvolvido com **HTML, CSS e JavaScript**, utilizando imagens inspiradas no anime **One Piece**.  
+O objetivo do jogo é arrastar as peças até suas posições corretas, completar a imagem e avançar automaticamente para a próxima fase.
 
-## Tecnologias Usadas
-
-- **HTML**: Estrutura básica do conteúdo da página.
-- **CSS**: Estilização do layout e dos elementos visuais.
-- **JavaScript**: Funcionalidade interativa para embaralhar, resolver e reiniciar o quebra-cabeça.
-- **Google Fonts**: Fonte 'Poppins' para estilização de texto.
-- **Bootstrap Icons**: Ícones para botões sociais.
-
-## Funcionalidades
-
-- **Criação de Quebra-Cabeça**: Gera um quebra-cabeça com imagens do anime "One Piece".
-- **Embaralhar Peças**: Permite embaralhar as peças do quebra-cabeça para uma nova configuração.
-- **Resetar Jogo**: Troca a imagem do quebra-cabeça e reinicia o jogo.
-- **Troca de Imagens**: Alterna entre diferentes imagens do anime ao reiniciar o jogo.
-
-## Imagens
-
-Atualmente, o projeto utiliza imagens inspiradas no anime "One Piece". As imagens são usadas como fundo do quebra-cabeça e podem ser alteradas conforme o progresso do desenvolvimento.
-
-## Instruções de Uso
-
-1. **Inicialização**: Abra o arquivo `index.html` em um navegador da web.
-2. **Embaralhar Peças**: Clique no botão "Embaralhar" para rearranjar as peças do quebra-cabeça.
-3. **Resetar Jogo**: Clique no botão "Resetar" para trocar a imagem do quebra-cabeça e reiniciar o jogo.
-
-## Status do Projeto
-
-O projeto está em andamento e ainda não está completo. As funcionalidades principais estão implementadas, mas ainda há melhorias a serem feitas na interface e na usabilidade.
-
-## Licença
-
-Este projeto é licenciado sob a [Licença MIT](LICENSE).
-
+O projeto foi desenvolvido com foco em **lógica, manipulação do DOM e experiência do usuário**, sendo ideal para fins educacionais e portfólio.
 
 ---
 
-Agradecemos pelo seu interesse e esperamos que você aproveite o desenvolvimento deste quebra-cabeça!
+## 🚀 Demonstração
 
+🔗 **Acesse o projeto online (GitHub Pages):**  
+👉 *(adicione aqui o link após publicar)*  
+Exemplo: `https://kriana83.github.io/quebra-cabeca-one-piece/`
+
+---
+
+## 🛠️ Tecnologias Utilizadas
+
+- **HTML5** — Estrutura da aplicação  
+- **CSS3** — Estilização e layout responsivo  
+- **JavaScript (Vanilla)** — Lógica do jogo e interatividade  
+- **Interact.js** — Drag and drop das peças  
+- **Google Fonts** — Fonte *Poppins*  
+- **Bootstrap Icons** — Ícones de redes sociais  
+
+---
+
+## 🎮 Funcionalidades
+
+- 🧩 Geração dinâmica do quebra-cabeça (4x4)
+- 🔀 Embaralhamento automático das peças
+- 🧠 Validação da posição correta de cada peça
+- 🔒 Fixação da peça ao ser posicionada corretamente
+- 🏆 Detecção de vitória
+- 🖼️ Troca automática de imagens ao concluir o quebra-cabeça
+- 🔄 Botão para resetar e trocar a imagem
+- 📱 Layout responsivo
+
+---
+
+## 📂 Estrutura do Projeto
+
+```
+
+quebra-cabeca/
+├── assets/
+│   └── imagens do jogo
+├── styles/
+│   └── style.css
+├── scripts/
+│   └── script.js
+├── index.html
+└── README.md
+
+````
+
+---
+
+## ▶️ Como Executar o Projeto
+
+### Localmente
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/KVIANA83/quebra-cabeca-one-piece.git
+````
+
+2. Abra o arquivo `index.html` no navegador.
+
+### Online [GitHub Pages](https://kviana83.github.io/quebra-cabeca/)
+
+* Basta acessar o link publicado na seção **Demonstração**.
+
+---
+
+## 📌 Status do Projeto
+
+✅ **Funcional e estável**
+🔧 Melhorias futuras podem incluir:
+
+* Contador de tempo
+* Sistema de pontuação
+* Níveis de dificuldade
+* Efeitos sonoros
+* Animações de vitória
+
+---
+
+## 📄 Licença
+
+Este projeto está licenciado sob a **Licença MIT**.
+Sinta-se à vontade para estudar, modificar e reutilizar.
+
+---
+
+💙 Desenvolvido com dedicação por **Karine Viana**
+
+```
+
+---
