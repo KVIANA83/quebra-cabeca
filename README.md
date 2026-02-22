@@ -12,8 +12,8 @@ O projeto foi desenvolvido com foco em **lógica, manipulação do DOM e experi�
 ## 🚀 Demonstração
 
 🔗 **Acesse o projeto online (GitHub Pages):**  
-👉 *(adicione aqui o link após publicar)*  
-Exemplo: `https://kviana83.github.io/quebra-cabeca-one-piece/`
+👉 *(https://kviana83.github.io/quebra-cabeca/)*  
+
 
 ---
 
